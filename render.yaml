@@ -1,6 +1,46 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# NOTE: this file only drives the service when it is deployed as a Blueprint.
+# For a manually-created service, mirror these values in the dashboard:
+#   Root Directory   : (leave EMPTY)
+#   Build Command    : npm ci && npm run build
+#   Publish Directory: dist
 services:
   - type: web
     name: humovare-launch
     runtime: static
-    buildCommand: npm run build
+
+    # Repo root. Must stay empty/"." — package.json and vite.config.js live
+    # at the top level, and vite writes to <repo root>/dist.
+    rootDir: .
+
+    buildCommand: npm ci && npm run build
     staticPublishPath: ./dist
+
+    envVars:
+      - key: NODE_VERSION
+        value: "22.11.0"
+
+    # Single-page app: anything that is not a real file falls back to index.html.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+    headers:
+      # Fingerprinted bundles (index-aAY2kdHw.js, etc.) never change: cache hard.
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      # The HTML shell must always be revalidated or deploys go unnoticed.
+      - path: /index.html
+        name: Cache-Control
+        value: no-cache
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
