@@ -1,0 +1,115 @@
+.joindrop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.25rem, 4vh, 2.25rem);
+  text-align: center;
+}
+
+.joindrop__lead {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.75rem, 2vh, 1.25rem);
+}
+
+.joindrop__begun {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-stretch: 90%;
+  font-size: clamp(0.78rem, 0.68rem + 0.6vw, 1.05rem);
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  text-indent: 0.34em;
+  color: var(--bone-dim);
+  margin: 0;
+}
+
+.joindrop__days {
+  font-size: clamp(2.6rem, 12vw, 9rem);
+  font-stretch: 70%;
+  color: var(--bone);
+}
+
+.joindrop__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 84%;
+  font-size: clamp(1.1rem, 0.9rem + 1.6vw, 2.2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--bone);
+  margin: 0;
+}
+
+.joindrop__copy {
+  font-size: clamp(0.64rem, 0.58rem + 0.32vw, 0.78rem);
+  max-width: 34ch;
+}
+
+.joindrop__button {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.75rem, 2vw, 1.15rem);
+  max-width: 100%;
+  margin-top: clamp(0.5rem, 2vh, 1.25rem);
+  padding: clamp(0.9rem, 2.4vw, 1.15rem) clamp(1.25rem, 3.4vw, 2rem);
+  border: 1px solid rgba(244, 239, 237, 0.34);
+  color: var(--bone);
+  text-decoration: none;
+  background: linear-gradient(180deg, rgba(244, 239, 237, 0.08), rgba(244, 239, 237, 0.02));
+  transition: background 600ms var(--ease-silk), border-color 600ms var(--ease-silk),
+    transform 600ms var(--ease-silk);
+}
+
+.joindrop__button:hover {
+  background: var(--bone);
+  border-color: var(--bone);
+  color: var(--red-800);
+  transform: translateY(-3px);
+}
+
+html[data-reduced-motion='true'] .joindrop__button {
+  transition: none;
+}
+
+html[data-reduced-motion='true'] .joindrop__button:hover {
+  transform: none;
+}
+
+.joindrop__icon {
+  flex: 0 0 auto;
+  width: clamp(1.15rem, 3.4vw, 1.5rem);
+  height: auto;
+}
+
+.joindrop__number {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 84%;
+  font-size: clamp(1rem, 0.85rem + 1.2vw, 1.7rem);
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.joindrop__action {
+  font-size: clamp(0.56rem, 0.52rem + 0.26vw, 0.68rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  opacity: 0.66;
+  white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+  .joindrop__button {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 0.75rem;
+  }
+  .joindrop__action {
+    width: 100%;
+    letter-spacing: 0.18em;
+  }
+}

@@ -1,0 +1,200 @@
+/* Fixed, behind everything. Pure CSS gradients (no filter: blur) so it
+   stays cheap on mobile GPUs. Everything animated here is transform or
+   opacity only. */
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 90% at 50% 8%, var(--red-700) 0%, var(--red-900) 46%, var(--red-1000) 100%),
+    var(--red-1000);
+  --mx: 50%;
+  --my: 42%;
+  transition: filter 1400ms var(--ease-cinema), transform 1400ms var(--ease-cinema);
+  will-change: filter, transform;
+}
+
+/* Intro state: everything is softer, heavier, out of focus. */
+.ambient[data-phase='intro'] {
+  filter: blur(14px) saturate(115%);
+  transform: scale(1.12);
+}
+
+.ambient[data-phase='main'] {
+  filter: blur(0px) saturate(100%);
+  transform: scale(1);
+}
+
+/* --- mouse-following spotlight (desktop) --- */
+.ambient__spot {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    38% 38% at var(--mx) var(--my),
+    rgba(231, 60, 66, 0.4) 0%,
+    rgba(180, 24, 32, 0.22) 34%,
+    rgba(0, 0, 0, 0) 68%
+  );
+  opacity: 0.9;
+}
+
+.ambient[data-drift='auto'] .ambient__spot {
+  animation: spot-drift 34s var(--ease-cinema) infinite alternate;
+}
+
+@keyframes spot-drift {
+  0% {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(5%, 4%, 0) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-3%, 6%, 0) scale(1.02);
+  }
+}
+
+/* --- slow moving light bodies: the "fabric" forms --- */
+.ambient__veil {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.ambient__veil--a {
+  width: 86vmax;
+  height: 62vmax;
+  top: -22vmax;
+  left: -18vmax;
+  background: radial-gradient(
+    closest-side,
+    rgba(207, 31, 39, 0.42),
+    rgba(139, 17, 25, 0.16) 58%,
+    transparent 100%
+  );
+  animation: veil-a 48s var(--ease-cinema) infinite alternate;
+}
+
+.ambient__veil--b {
+  width: 74vmax;
+  height: 74vmax;
+  right: -26vmax;
+  bottom: -30vmax;
+  background: radial-gradient(
+    closest-side,
+    rgba(9, 5, 6, 0.72),
+    rgba(9, 5, 6, 0.3) 52%,
+    transparent 100%
+  );
+  animation: veil-b 62s var(--ease-cinema) infinite alternate;
+}
+
+.ambient__veil--c {
+  width: 58vmax;
+  height: 38vmax;
+  left: 22vw;
+  bottom: -12vmax;
+  border-radius: 46% 54% 38% 62% / 58% 42% 58% 42%;
+  background: radial-gradient(
+    closest-side,
+    rgba(231, 70, 76, 0.2),
+    rgba(107, 13, 22, 0.1) 60%,
+    transparent 100%
+  );
+  animation: veil-c 74s linear infinite;
+}
+
+@keyframes veil-a {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(8vw, 6vh, 0) scale(1.14);
+  }
+}
+
+@keyframes veil-b {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.06);
+  }
+  to {
+    transform: translate3d(-9vw, -5vh, 0) scale(1);
+  }
+}
+
+@keyframes veil-c {
+  0% {
+    transform: translate3d(-4vw, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(4vw, -3vh, 0) rotate(180deg);
+  }
+  100% {
+    transform: translate3d(-4vw, 0, 0) rotate(360deg);
+  }
+}
+
+/* --- vignette --- */
+.ambient__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    116% 84% at 50% 46%,
+    transparent 38%,
+    rgba(10, 2, 4, 0.5) 78%,
+    rgba(6, 1, 2, 0.88) 100%
+  );
+}
+
+/* --- film grain --- */
+.grain {
+  position: fixed;
+  inset: -120px;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: soft-light;
+  background-image: var(--grain-src);
+  background-repeat: repeat;
+  background-size: 220px 220px;
+  animation: grain-shift 700ms steps(4, end) infinite;
+  will-change: transform;
+}
+
+@keyframes grain-shift {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(-3%, 2%, 0);
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0);
+  }
+  75% {
+    transform: translate3d(-2%, -1%, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+html[data-reduced-motion='true'] .grain,
+html[data-reduced-motion='true'] .ambient__veil,
+html[data-reduced-motion='true'] .ambient__spot {
+  animation: none !important;
+}
+
+/* Trim the most expensive layers on small / low-power screens. */
+@media (max-width: 640px) {
+  .ambient__veil--c {
+    display: none;
+  }
+  .grain {
+    opacity: 0.3;
+    background-size: 180px 180px;
+  }
+}

@@ -1,0 +1,102 @@
+/* The burst is clipped to its own box (.reveal), so nothing it throws can
+   reach the document and add scroll height. */
+
+.burst {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.burst > * {
+  grid-area: 1 / 1;
+}
+
+/* --- the seam of light that splits open --- */
+.burst__seam {
+  width: min(58%, 26rem);
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(244, 239, 237, 0.5) 18%,
+    var(--bone) 50%,
+    rgba(244, 239, 237, 0.5) 82%,
+    transparent
+  );
+  box-shadow: 0 0 26px 6px rgba(244, 239, 237, 0.34),
+    0 0 60px 18px rgba(207, 31, 39, 0.4);
+}
+
+/* --- the fractures --- */
+.burst__cracks {
+  width: min(96%, 40rem);
+  aspect-ratio: 1 / 1;
+  overflow: visible;
+  fill: none;
+  stroke: var(--bone);
+  stroke-width: 1.1;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px rgba(244, 239, 237, 0.55))
+    drop-shadow(0 0 16px rgba(231, 60, 66, 0.6));
+}
+
+/* --- the blast --- */
+.burst__flash {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    closest-side at 50% 50%,
+    rgba(255, 252, 250, 0.95) 0%,
+    rgba(255, 138, 142, 0.45) 34%,
+    rgba(207, 31, 39, 0.12) 62%,
+    transparent 100%
+  );
+}
+
+.burst__ring {
+  width: min(52%, 22rem);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 239, 237, 0.85);
+  box-shadow: 0 0 34px rgba(244, 239, 237, 0.28),
+    inset 0 0 28px rgba(231, 60, 66, 0.34);
+}
+
+.burst__shard {
+  border-radius: 1px;
+  background: linear-gradient(140deg, var(--bone), rgba(231, 70, 76, 0.75));
+  clip-path: polygon(50% 0%, 100% 62%, 58% 100%, 0% 44%);
+  box-shadow: 0 0 12px rgba(244, 239, 237, 0.4);
+}
+
+/* ---------------------------------------------------------------
+   The reveal container — owns the clipping and the stacking.
+   --------------------------------------------------------------- */
+
+.reveal {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: clamp(11rem, 30vh, 18rem);
+  overflow: hidden;
+}
+
+.reveal__headline {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+
+/* Pinned final state. Overrides the animation's inline styles so the launch
+   headline is guaranteed visible once the burst window has passed. */
+.reveal__headline--settled {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}

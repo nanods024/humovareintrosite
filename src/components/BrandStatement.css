@@ -1,0 +1,36 @@
+.statement {
+  min-height: 82svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(3rem, 12vh, 7rem);
+  text-align: center;
+}
+
+.statement__word {
+  font-size: clamp(2.4rem, 13vw, 11rem);
+  font-stretch: 70%;
+  letter-spacing: 0.01em;
+  color: var(--bone);
+  opacity: 0.94;
+}
+
+.statement__lines {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 80%;
+  font-size: clamp(1.5rem, 1rem + 4.2vw, 4.5rem);
+  line-height: 1.02;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  color: var(--bone);
+  margin: 0;
+  max-width: 16ch;
+}
+
+.statement__lines em {
+  display: block;
+  font-style: normal;
+  color: rgba(244, 239, 237, 0.42);
+}

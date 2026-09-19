@@ -1,0 +1,124 @@
+.countdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.1rem, 3.2vh, 2.75rem);
+  width: 100%;
+}
+
+.countdown__headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 84%;
+  font-size: clamp(0.95rem, 0.8rem + 1vw, 1.5rem);
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  text-indent: 0.3em;
+  color: var(--bone);
+  margin: 0;
+  text-align: center;
+}
+
+.countdown__headline--live {
+  font-size: clamp(2rem, 1rem + 7vw, 6rem);
+  font-weight: 900;
+  font-stretch: 76%;
+  letter-spacing: 0.02em;
+  text-indent: 0;
+  line-height: 0.9;
+}
+
+.countdown__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: start;
+  width: 100%;
+  max-width: 62rem;
+  gap: clamp(0.25rem, 1.5vw, 1.25rem);
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.5rem, 1.4vh, 0.9rem);
+  min-width: 0;
+  padding-inline: clamp(0.1rem, 0.6vw, 0.75rem);
+  border-left: 1px solid var(--hairline);
+}
+
+.unit:first-child {
+  border-left: 0;
+}
+
+.unit__digits {
+  display: flex;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-stretch: 72%;
+  font-size: clamp(2.5rem, min(12.5vw, 16vh), 8.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.02em;
+  color: var(--bone);
+  font-variant-numeric: tabular-nums;
+}
+
+.unit__digit {
+  position: relative;
+  display: inline-block;
+  width: 0.62em;
+  height: 0.94em;
+  overflow: hidden;
+  text-align: center;
+}
+
+.unit__reel {
+  display: block;
+  height: 1000%;
+  will-change: transform;
+  transition: transform 620ms var(--ease-silk);
+}
+
+.unit__reel > span {
+  display: grid;
+  place-items: center;
+  height: 10%;
+}
+
+html[data-reduced-motion='true'] .unit__reel {
+  transition: none;
+}
+
+.unit__label {
+  font-size: clamp(0.53rem, 0.46rem + 0.35vw, 0.7rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  text-indent: 0.26em;
+  color: var(--bone-faint);
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .unit__label {
+    letter-spacing: 0.14em;
+    text-indent: 0.14em;
+  }
+  .unit {
+    padding-inline: 0.05rem;
+  }
+}
+
+/* Short laptops: keep all four units on screen with the hero. */
+@media (max-height: 860px) and (min-width: 700px) {
+  .countdown {
+    gap: clamp(0.85rem, 2.2vh, 1.75rem);
+  }
+  .unit__digits {
+    font-size: min(11vw, 14vh);
+  }
+  .unit {
+    gap: 0.45rem;
+  }
+}

@@ -1,0 +1,149 @@
+.teaser__head {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vh, 2rem);
+  margin-bottom: clamp(3rem, 8vh, 5.5rem);
+}
+
+.teaser__title {
+  font-size: clamp(2.6rem, 11vw, 9rem);
+  font-stretch: 72%;
+  color: var(--bone);
+}
+
+.teaser__copy {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-stretch: 92%;
+  font-size: clamp(1rem, 0.8rem + 1.4vw, 2rem);
+  line-height: 1.24;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bone-dim);
+  margin: 0;
+  max-width: 22ch;
+}
+
+/* Two columns pair the square pieces on one row and the portrait pieces on
+   the next, so every image keeps its own aspect ratio and nothing is cropped. */
+.teaser__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2.5vw, 2rem);
+}
+
+@media (max-width: 760px) {
+  .teaser__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.piece {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.piece__frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--hairline);
+  background: linear-gradient(180deg, rgba(43, 5, 9, 0.5), rgba(7, 1, 2, 0.6));
+  transition: border-color 700ms var(--ease-silk);
+}
+
+/* A soft red veil that lifts on hover: the pieces stay a little mysterious
+   until you look at them. */
+.piece__frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+      120% 90% at 50% 0%,
+      rgba(207, 31, 39, 0.28),
+      transparent 64%
+    ),
+    linear-gradient(180deg, rgba(20, 3, 5, 0.3), rgba(7, 1, 2, 0.46));
+  opacity: 1;
+  transition: opacity 900ms var(--ease-silk);
+}
+
+.piece__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scale(1.02);
+  transition: transform 1100ms var(--ease-silk), filter 900ms var(--ease-silk);
+  filter: saturate(104%) contrast(102%);
+  will-change: transform;
+}
+
+.piece:hover .piece__frame,
+.piece:focus-within .piece__frame {
+  border-color: rgba(244, 239, 237, 0.34);
+}
+
+.piece:hover .piece__frame::after,
+.piece:focus-within .piece__frame::after {
+  opacity: 0.35;
+}
+
+.piece:hover .piece__img,
+.piece:focus-within .piece__img {
+  transform: scale(1.055);
+}
+
+html[data-reduced-motion='true'] .piece__img {
+  transition: none;
+  transform: none;
+}
+
+html[data-reduced-motion='true'] .piece:hover .piece__img {
+  transform: none;
+}
+
+.piece__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+}
+
+.piece__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 86%;
+  font-size: clamp(0.8rem, 0.72rem + 0.4vw, 1rem);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--bone);
+}
+
+.piece__index {
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  color: var(--bone-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.teaser__strip {
+  margin-top: clamp(2.5rem, 6vh, 4rem);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.75rem, 3vw, 2.25rem);
+}
+
+.teaser__strip span {
+  font-size: clamp(0.6rem, 0.54rem + 0.3vw, 0.74rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--bone-faint);
+}

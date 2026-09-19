@@ -1,0 +1,296 @@
+.footer {
+  position: relative;
+  z-index: 1;
+  padding: clamp(2.5rem, 7vh, 4rem) var(--gutter) max(2rem, env(safe-area-inset-bottom));
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding-top: clamp(1.75rem, 4vh, 2.5rem);
+  border-top: 1px solid var(--hairline);
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.footer__name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-stretch: 76%;
+  font-size: clamp(1.4rem, 1rem + 2.2vw, 2.6rem);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--bone);
+}
+
+.footer__soon {
+  font-size: 0.62rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--bone-faint);
+}
+
+.footer__cols {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.75rem, 6vw, 4.5rem);
+}
+
+.footer__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.footer__heading {
+  margin: 0;
+  font-size: 0.58rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(244, 239, 237, 0.3);
+}
+
+.footer__address {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-style: normal;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--bone-dim);
+}
+
+.footer__phone {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--bone);
+  text-decoration: none;
+  transition: opacity 400ms var(--ease-silk);
+  font-variant-numeric: tabular-nums;
+}
+
+.footer__phone:hover {
+  opacity: 0.66;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 3vw, 2rem);
+}
+
+.footer__links a {
+  font-size: 0.64rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.24em;
+  color: var(--bone-dim);
+  text-decoration: none;
+  transition: color 400ms var(--ease-silk);
+}
+
+.footer__links a:hover {
+  color: var(--bone);
+}
+
+.footer__meta {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: clamp(2rem, 5vh, 3rem);
+}
+
+.footer__copy {
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(244, 239, 237, 0.26);
+  margin: 0;
+}
+
+.footer__replay {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: rgba(244, 239, 237, 0.34);
+  cursor: pointer;
+  transition: color 400ms var(--ease-silk);
+}
+
+.footer__replay:hover {
+  color: var(--bone);
+}
+
+.footer__powered {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  width: 100%;
+  margin: clamp(1.5rem, 4vh, 2.25rem) 0 0;
+  padding-top: clamp(1rem, 2.5vh, 1.5rem);
+  border-top: 1px solid rgba(244, 239, 237, 0.07);
+  font-size: 0.56rem;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+}
+
+.footer__poweredLabel {
+  color: rgba(244, 239, 237, 0.26);
+  transition: color 620ms var(--ease-silk);
+}
+
+.footer__powered:hover .footer__poweredLabel {
+  color: rgba(244, 239, 237, 0.42);
+}
+
+/* ---------------------------------------------------------------
+   The credit link.
+   Three things move together on hover: the name is filled in
+   left-to-right with a brighter tone, a hairline is drawn under it
+   in the same direction, and the arrow lifts away. On the way out
+   the hairline retracts to the right, so the gesture reads as one
+   continuous sweep rather than a blink.
+   --------------------------------------------------------------- */
+
+.credit {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding-bottom: 0.35em;
+  color: rgba(244, 239, 237, 0.5);
+  text-decoration: none;
+  letter-spacing: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.credit--plain {
+  cursor: default;
+}
+
+/* the hairline */
+.credit::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(244, 239, 237, 0.25),
+    var(--bone) 42%,
+    var(--red-400)
+  );
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 620ms var(--ease-silk);
+}
+
+.credit:hover::after,
+.credit:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+.credit__text {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  color: rgba(244, 239, 237, 0.5);
+}
+
+/* The name is filled left-to-right by sliding a hard-edged gradient behind
+   the glyphs. Guarded, so if background-clip is unsupported the text simply
+   stays in its resting tone instead of turning invisible. */
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .credit__text {
+    color: transparent;
+    background-image: linear-gradient(
+      90deg,
+      var(--bone) 0 50%,
+      rgba(244, 239, 237, 0.5) 50% 100%
+    );
+    background-size: 200% 100%;
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    transition: background-position 620ms var(--ease-silk);
+  }
+
+  .credit:hover .credit__text,
+  .credit:focus-visible .credit__text {
+    background-position: 0 0;
+  }
+}
+
+.credit__arrow {
+  width: 0.85em;
+  height: 0.85em;
+  flex: 0 0 auto;
+  opacity: 0.4;
+  transform: translate3d(-2px, 2px, 0);
+  transition: opacity 620ms var(--ease-silk), transform 620ms var(--ease-silk),
+    color 620ms var(--ease-silk);
+}
+
+.credit:hover .credit__arrow,
+.credit:focus-visible .credit__arrow {
+  opacity: 1;
+  color: var(--bone);
+  transform: translate3d(1px, -1px, 0);
+}
+
+.credit:focus-visible {
+  outline: 2px solid var(--bone);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
+/* Keep the hover legible without any of the movement. */
+html[data-reduced-motion='true'] .credit::after,
+html[data-reduced-motion='true'] .credit__text,
+html[data-reduced-motion='true'] .credit__arrow,
+html[data-reduced-motion='true'] .footer__poweredLabel {
+  transition: none;
+}
+
+@media (hover: none) {
+  /* No hover on touch: show the finished state so the link still reads
+     as a link. */
+  .credit__text {
+    background-position: 0 0;
+  }
+  .credit::after {
+    transform: scaleX(1);
+    transform-origin: left center;
+    opacity: 0.5;
+  }
+  .credit__arrow {
+    opacity: 0.7;
+    transform: none;
+  }
+}
