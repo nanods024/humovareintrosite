@@ -12,6 +12,7 @@ npm run build    # production bundle in dist/
 npm run preview  # serve the production build
 npm run images   # re-optimize the campaign artwork (see below)
 ```
+
 ## Deploy (Render — static site)
 
 The production bundle is plain static files, so this deploys as a Render
@@ -19,22 +20,23 @@ The production bundle is plain static files, so this deploys as a Render
 
 | Setting | Value |
 | --- | --- |
-| Root Directory | *(leave empty)* |
-| Build Command | `npm ci && npm run build` |
+| Root Directory | `src` |
+| Build Command | `npm install; npm run build` |
 | Publish Directory | `dist` |
-| `NODE_VERSION` | `22.11.0` |
 
-**Root Directory must be empty.** `package.json` and `vite.config.js` live at
-the repo root and Vite writes to `<repo root>/dist`. If Root Directory is set
-to `src`, npm still finds the root `package.json` by walking up the tree, so
-the build *succeeds* — but Render then looks for the output in `src/dist` and
-fails with `Publish directory dist does not exist!`.
+Render checks out the repo at `/opt/render/project/src`, so with a Root
+Directory of `src` the published folder resolves to `<repo root>/src/dist`.
+Vite is configured to write there: see `build.outDir` in `vite.config.js`.
 
-`render.yaml` in this repo encodes the same settings (plus the SPA rewrite,
-asset caching and security headers) for Blueprint deploys.
+**If you ever clear the Root Directory field in Render, change `build.outDir`
+back to `dist`** — the two settings have to move together, or the deploy fails
+with `Publish directory dist does not exist!`.
+
+`src/dist/` is generated and git-ignored. Vite empties it on every build, so
+never put source files in it.
 
 ### Known advisory
 
 `npm audit` reports a moderate/high issue in `esbuild` via `vite`. It affects
-the **dev server only** and is not present in the built `dist/` output, so it
-does not ship to production. Clearing it requires a breaking upgrade to Vite 8.
+the **dev server only** and is not present in the built output, so it does not
+ship to production. Clearing it requires a breaking upgrade to Vite 8.

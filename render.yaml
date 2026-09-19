@@ -1,20 +1,19 @@
 # Render Blueprint — https://render.com/docs/blueprint-spec
 # NOTE: this file only drives the service when it is deployed as a Blueprint.
-# For a manually-created service, mirror these values in the dashboard:
-#   Root Directory   : (leave EMPTY)
-#   Build Command    : npm ci && npm run build
+# The live service is configured manually in the dashboard as:
+#   Root Directory   : src
+#   Build Command    : npm install; npm run build
 #   Publish Directory: dist
+# Both resolve to the same folder, because vite.config.js writes the bundle
+# to src/dist (see build.outDir there). Keep the two in sync.
 services:
   - type: web
     name: humovare-launch
     runtime: static
 
-    # Repo root. Must stay empty/"." — package.json and vite.config.js live
-    # at the top level, and vite writes to <repo root>/dist.
     rootDir: .
-
     buildCommand: npm ci && npm run build
-    staticPublishPath: ./dist
+    staticPublishPath: ./src/dist
 
     envVars:
       - key: NODE_VERSION
