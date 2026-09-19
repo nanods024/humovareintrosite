@@ -11,6 +11,7 @@ npm run dev      # http://localhost:5173
 npm run build    # production bundle in dist/
 npm run preview  # serve the production build
 npm run images   # re-optimize the campaign artwork (see below)
+npm run logo     # re-cut the logo from assets-src/humovare-logo.png
 ```
 
 ## Deploy (Render — static site)

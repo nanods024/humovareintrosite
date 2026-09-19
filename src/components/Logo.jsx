@@ -1,10 +1,14 @@
 /* -------------------------------------------------------------
-   To use the official artwork, drop  humovare-logo.png  into
-   src/assets/ and change the import below to point at it.
-   Nothing else needs to change — the tile is square either way
-   and is only ever scaled uniformly (object-fit: contain).
+   Official HUMOVARE artwork.
+
+   Master file: assets-src/humovare-logo.png (1600x1600, red tile).
+   The shipped asset is the same artwork with the red background
+   matted out, so the wordmark sits directly on the page and is
+   never clipped or faded by a blending mask.
+
+   Regenerate after replacing the master:  npm run logo
    ------------------------------------------------------------- */
-import logoSrc from '../assets/humovare-logo.svg'
+import logoSrc from '../assets/humovare-logo.webp'
 import './Logo.css'
 
 export default function Logo({ size, float = false, className = '', priority = false }) {
@@ -17,8 +21,8 @@ export default function Logo({ size, float = false, className = '', priority = f
         className="logo__img"
         src={logoSrc}
         alt="HUMOVARE"
-        width="1000"
-        height="1000"
+        width="1200"
+        height="1200"
         decoding="async"
         loading={priority ? 'eager' : 'lazy'}
         draggable="false"

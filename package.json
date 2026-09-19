@@ -10,7 +10,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "images": "node scripts/optimize-images.mjs"
+    "images": "node scripts/optimize-images.mjs",
+    "logo": "node scripts/build-logo.mjs"
   },
   "dependencies": {
     "framer-motion": "^11.11.17",
